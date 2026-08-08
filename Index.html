@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CreatorPilot AI</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #111827;
+}
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 20px;
+}
+
+.header {
+    background: #111827;
+    color: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+.header p {
+    color: #cbd5e1;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 7px;
+}
+
+textarea,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+textarea {
+    min-height: 110px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    background: #111827;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.output {
+    white-space: pre-wrap;
+    line-height: 1.6;
+    background: #f8fafc;
+    padding: 18px;
+    border-radius: 12px;
+}
+
+@media(max-width:600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>🚀 CreatorPilot AI</h1>
+<p>Turn your idea into viral content</p>
+</div>
+
+<div class="card">
+
+<h2>🎬 Create Your Video</h2>
+
+<label>Video Idea</label>
+
+<textarea id="idea"
+placeholder="Example: A funny aloo vlog in Dubai"></textarea>
+
+<div class="grid">
+
+<div>
+<label>Platform</label>
+
+<select id="platform">
+<option>TikTok</option>
+<option>YouTube Shorts</option>
+<option>Instagram Reels</option>
+</select>
+</div>
+
+<div>
+<label>Duration</label>
+
+<select id="duration">
+<option>10 seconds</option>
+<option>30 seconds</option>
+<option>60 seconds</option>
+</select>
+</div>
+
+<div>
+<label>Language</label>
+
+<select id="language">
+<option>Roman Urdu</option>
+<option>English</option>
+<option>Hindi</option>
+</select>
+</div>
+
+<div>
+<label>Style</label>
+
+<select id="style">
+<option>Funny</option>
+<option>Cinematic</option>
+<option>Educational</option>
+<option>Horror</option>
+</select>
+</div>
+
+</div>
+
+<button onclick="generateContent()">
+✨ Generate Content
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>✨ Your Content</h2>
+
+<div id="output" class="output">
+Your generated content will appear here...
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function generateContent() {
+
+let idea = document.getElementById("idea").value;
+
+let platform = document.getElementById("platform").value;
+
+let duration = document.getElementById("duration").value;
+
+let language = document.getElementById("language").value;
+
+let style = document.getElementById("style").value;
+
+if (idea.trim() === "") {
+
+idea = "A funny aloo vlog";
+
+}
+
+let result = `
+
+🚀 CREATORPILOT AI
+
+━━━━━━━━━━━━━━━━━━
+
+💡 IDEA
+
+${idea}
+
+📱 PLATFORM
+
+${platform}
+
+⏱️ DURATION
+
+${duration}
+
+🌎 LANGUAGE
+
+${language}
+
+🎨 STYLE
+
+${style}
+
+
+🎬 VIDEO SCRIPT
+
+HOOK:
+
+"Assalam-o-Alaikum! Aaj ka vlog bilkul normal nahi hai! 😱"
+
+SCENE 1:
+
+Start with a close-up shot of the main character.
+Show the location and introduce today's adventure.
+
+SCENE 2:
+
+Show the main action related to:
+
+${idea}
+
+Keep the camera moving and make the scene energetic and entertaining.
+
+SCENE 3:
+
+Create a funny or surprising moment.
+
+VOICE OVER:
+
+"Aaj jo kuch hua, mujhe khud yakeen nahi aa raha! 😂"
+
+ENDING:
+
+"Video pasand aaye to follow zaroor karna! ❤️"
+
+
+🎞️ AI VIDEO PROMPTS
+
+Scene 1:
+
+Vertical 9:16 social media video,
+${style} style,
+${idea},
+high quality,
+detailed environment,
+expressive character,
+smooth camera movement.
+
+Scene 2:
+
+Vertical 9:16,
+continuation of the same character and location,
+${idea},
+dynamic camera,
+cinematic lighting,
+high detail.
+
+Scene 3:
+
+Vertical 9:16,
+funny memorable ending,
+expressive character,
+close-up camera,
+viral social media style.
+
+
+📝 CAPTION
+
+${idea} 😂🔥
+
+Aaj ka scene hi alag tha!
+
+Follow for more!
+
+
+#️⃣ HASHTAGS
+
+#fyp
+#viral
+#tiktok
+#shorts
+#creator
+#ai
+#${style.toLowerCase()}
+
+`;
+
+document.getElementById("output").textContent = result;
+
+}
+
+</script>
+
+</body>
+  </html>
