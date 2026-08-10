@@ -41,7 +41,6 @@ body {
 .header p {
   color: #cbd5e1;
   font-size: 20px;
-  margin-bottom: 0;
 }
 
 .card {
@@ -96,6 +95,10 @@ button:hover {
   opacity: 0.9;
 }
 
+.video-button {
+  background: #2563eb;
+}
+
 .copy-btn {
   width: auto;
   padding: 10px 18px;
@@ -103,7 +106,8 @@ button:hover {
   font-size: 14px;
 }
 
-.result {
+.result,
+.video-result {
   display: none;
 }
 
@@ -124,6 +128,23 @@ button:hover {
   font-weight: bold;
 }
 
+.video-preview {
+  width: 100%;
+  max-height: 500px;
+  border-radius: 18px;
+  background: #000;
+  margin-top: 15px;
+}
+
+.notice {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+  padding: 15px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
+
 .footer {
   text-align: center;
   color: #64748b;
@@ -142,6 +163,7 @@ button:hover {
     <p>Turn your idea into viral content</p>
   </div>
 
+
   <div class="card">
 
     <h2>🎬 Create Your Video</h2>
@@ -153,6 +175,7 @@ button:hover {
       placeholder="Example: A funny aloo vlog in Dubai"
     ></textarea>
 
+
     <label>Platform</label>
 
     <select id="platform">
@@ -161,6 +184,7 @@ button:hover {
       <option>Instagram Reels</option>
       <option>YouTube</option>
     </select>
+
 
     <label>Duration</label>
 
@@ -171,6 +195,7 @@ button:hover {
       <option>60 seconds</option>
     </select>
 
+
     <label>Language</label>
 
     <select id="language">
@@ -178,6 +203,7 @@ button:hover {
       <option>Urdu</option>
       <option>English</option>
     </select>
+
 
     <label>Style</label>
 
@@ -191,9 +217,16 @@ button:hover {
       <option>Motivational</option>
     </select>
 
+
     <button onclick="generateContent()">
       🚀 Generate Script
     </button>
+
+
+    <button class="video-button" onclick="generateVideo()">
+      🎬 Generate Video
+    </button>
+
 
     <div class="loading" id="loading">
       ⏳ Creating your content...
@@ -202,36 +235,64 @@ button:hover {
   </div>
 
 
+  <!-- SCRIPT RESULT -->
+
   <div class="card result" id="result">
 
     <h2>✨ Your Content</h2>
 
     <h3>🎬 Video Script</h3>
+
     <div class="result-box" id="script"></div>
+
     <button class="copy-btn" onclick="copyText('script')">
       📋 Copy Script
     </button>
 
 
     <h3>🎤 Voice Over</h3>
+
     <div class="result-box" id="voice"></div>
+
     <button class="copy-btn" onclick="copyText('voice')">
       📋 Copy Voice Over
     </button>
 
 
     <h3>📝 Caption</h3>
+
     <div class="result-box" id="caption"></div>
+
     <button class="copy-btn" onclick="copyText('caption')">
       📋 Copy Caption
     </button>
 
 
     <h3>#️⃣ Hashtags</h3>
+
     <div class="result-box" id="hashtags"></div>
+
     <button class="copy-btn" onclick="copyText('hashtags')">
       📋 Copy Hashtags
     </button>
+
+  </div>
+
+
+  <!-- VIDEO AREA -->
+
+  <div class="card video-result" id="videoResult">
+
+    <h2>🎥 AI Video</h2>
+
+    <div class="notice" id="videoMessage"></div>
+
+    <video
+      id="videoPreview"
+      class="video-preview"
+      controls
+      style="display:none;"
+    ></video>
 
   </div>
 
@@ -261,76 +322,85 @@ function generateContent() {
   document.getElementById("loading").style.display = "block";
   document.getElementById("result").style.display = "none";
 
+
   setTimeout(function() {
 
     let script = "";
     let voice = "";
 
+
     if (language === "Roman Urdu") {
 
       script =
-      "🎬 SCENE 1\\n" +
-      "Camera video idea par focus kare: " + idea + "\\n\\n" +
+      "🎬 SCENE 1\n" +
+      "Camera video idea par focus kare: " + idea + "\n\n" +
 
-      "🎬 SCENE 2\\n" +
-      "Fast camera movement aur engaging visuals. Style: " + style + ".\\n\\n" +
+      "🎬 SCENE 2\n" +
+      "Fast camera movement aur engaging visuals. Style: " + style + ".\n\n" +
 
-      "🎬 SCENE 3\\n" +
-      "Main moment ko close-up mein show karo aur viewer ki attention hold rakho.\\n\\n" +
+      "🎬 SCENE 3\n" +
+      "Main moment ko close-up mein show karo aur viewer ki attention hold rakho.\n\n" +
 
-      "🎬 SCENE 4\\n" +
-      "End mein strong hook aur call-to-action: \"Follow karo aur next video miss mat karna!\"";
+      "🎬 SCENE 4\n" +
+      "End mein strong hook: Follow karo aur next video miss mat karna!";
 
 
       voice =
-      "Aaj ki video ka idea hai: " + idea + ".\\n\\n" +
-      "Is video mein hum is idea ko " + style.toLowerCase() +
-      " style mein present karenge.\\n\\n" +
-      "Agar aapko video pasand aaye to follow zaroor karna aur next video ke liye ready rehna! 🚀";
+      "Aaj ki video ka idea hai: " + idea + ".\n\n" +
+      "Is video ko " + style.toLowerCase() +
+      " style mein present karenge.\n\n" +
+      "Agar video pasand aaye to follow zaroor karna! 🚀";
 
     }
+
 
     else if (language === "Urdu") {
 
       script =
-      "🎬 منظر 1\\n" +
-      "ویڈیو کا آغاز اس آئیڈیا سے کریں: " + idea + "\\n\\n" +
+      "🎬 منظر 1\n" +
+      "ویڈیو کا آغاز اس آئیڈیا سے کریں: " + idea + "\n\n" +
 
-      "🎬 منظر 2\\n" +
-      "تیز اور دلچسپ ویژولز دکھائیں۔ انداز: " + style + "\\n\\n" +
+      "🎬 منظر 2\n" +
+      "تیز اور دلچسپ ویژولز دکھائیں۔ انداز: " + style + "\n\n" +
 
-      "🎬 منظر 3\\n" +
-      "اہم لمحے کو کلوز اپ میں دکھائیں۔\\n\\n" +
+      "🎬 منظر 3\n" +
+      "اہم لمحے کو کلوز اپ میں دکھائیں۔\n\n" +
 
-      "🎬 منظر 4\\n" +
+      "🎬 منظر 4\n" +
       "آخر میں کہیں: فالو کریں اور اگلی ویڈیو ضرور دیکھیں!";
 
+
       voice =
-      "آج کی ویڈیو کا آئیڈیا ہے: " + idea + ".\\n\\n" +
-      "اس ویڈیو کو " + style + " انداز میں پیش کیا جائے گا۔\\n\\n" +
+      "آج کی ویڈیو کا آئیڈیا ہے: " + idea + ".\n\n" +
+      "اس ویڈیو کو " + style + " انداز میں پیش کیا جائے گا۔\n\n" +
       "اگر ویڈیو پسند آئے تو فالو ضرور کریں! 🚀";
 
     }
 
+
     else {
 
       script =
-      "🎬 SCENE 1\\n" +
-      "Start with an attention-grabbing shot about: " + idea + "\\n\\n" +
+      "🎬 SCENE 1\n" +
+      "Start with an attention-grabbing shot about: " + idea + "\n\n" +
 
-      "🎬 SCENE 2\\n" +
-      "Use fast visuals and engaging camera movement. Style: " + style + ".\\n\\n" +
+      "🎬 SCENE 2\n" +
+      "Use fast visuals and engaging camera movement. Style: " + style + ".\n\n" +
 
-      "🎬 SCENE 3\\n" +
-      "Show the main moment with a close-up shot.\\n\\n" +
+      "🎬 SCENE 3\n" +
+      "Show the main moment with a close-up shot.\n\n" +
 
-      "🎬 SCENE 4\\n" +
+      "🎬 SCENE 4\n" +
       "Finish with a strong call-to-action: Follow for more!";
 
+
       voice =
-      "Today's video idea is: " + idea + ".\\n\\n" +
-      "We're turning this idea into a " + style.toLowerCase() +
-      " video for " + platform + ".\\n\\n" +
+      "Today's video idea is: " + idea + ".\n\n" +
+      "We're turning this idea into a " +
+      style.toLowerCase() +
+      " video for " +
+      platform +
+      ".\n\n" +
       "Follow for more amazing content! 🚀";
 
     }
@@ -339,8 +409,10 @@ function generateContent() {
     const caption =
       "🔥 " + idea +
       " | " + style +
-      " content for " + platform +
-      " | " + duration;
+      " content for " +
+      platform +
+      " | " +
+      duration;
 
 
     const hashtags =
@@ -354,8 +426,10 @@ function generateContent() {
     document.getElementById("caption").innerText = caption;
     document.getElementById("hashtags").innerText = hashtags;
 
+
     document.getElementById("loading").style.display = "none";
     document.getElementById("result").style.display = "block";
+
 
     window.scrollTo({
       top: document.getElementById("result").offsetTop - 20,
@@ -366,6 +440,44 @@ function generateContent() {
 
 }
 
+
+/* VIDEO BUTTON */
+
+function generateVideo() {
+
+  const idea = document.getElementById("idea").value.trim();
+
+  if (!idea) {
+    alert("Pehle video idea likho! 😄");
+    return;
+  }
+
+
+  const videoResult = document.getElementById("videoResult");
+  const videoMessage = document.getElementById("videoMessage");
+  const videoPreview = document.getElementById("videoPreview");
+
+
+  videoResult.style.display = "block";
+
+  videoPreview.style.display = "none";
+
+  videoMessage.innerHTML =
+    "⏳ Video request ready hai!<br><br>" +
+    "🎬 Idea: <b>" + escapeHTML(idea) + "</b><br>" +
+    "⚙️ AI video generation API abhi connected nahi hai.<br><br>" +
+    "API connect hone ke baad yahin actual video generate aur preview hoga. 🚀";
+
+
+  window.scrollTo({
+    top: videoResult.offsetTop - 20,
+    behavior: "smooth"
+  });
+
+}
+
+
+/* COPY */
 
 function copyText(id) {
 
@@ -380,6 +492,19 @@ function copyText(id) {
     alert("Copy nahi ho saka, text manually select kar lo.");
 
   });
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(text) {
+
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
 
 }
 
