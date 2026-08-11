@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CreatorPilot AI</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#111827}
+.container{max-width:850px;margin:auto;padding:20px}.header{background:#111827;color:white;padding:35px 20px;border-radius:25px;text-align:center;margin-bottom:25px}
+.header h1{margin:0;font-size:38px}.header p{color:#cbd5e1;font-size:20px}.card{background:white;padding:25px;border-radius:22px;margin-bottom:20px;box-shadow:0 5px 20px rgba(0,0,0,.06)}
+h2{margin-top:0;font-size:28px}label{display:block;font-weight:bold;margin-top:18px;margin-bottom:8px}
+textarea,select{width:100%;padding:14px;border:1px solid #d1d5db;border-radius:12px;font-size:16px;background:white}textarea{min-height:120px;resize:vertical}
+button{width:100%;padding:16px;margin-top:22px;border:0;border-radius:12px;background:#111827;color:white;font-size:18px;font-weight:bold;cursor:pointer}
+.video-button{background:#2563eb}.copy-btn{width:auto;padding:10px 18px;margin-top:10px;font-size:14px}.result,.video-result{display:none}
+.result-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:15px;padding:18px;margin-top:12px;white-space:pre-wrap;line-height:1.6}
+.loading{text-align:center;padding:15px;font-weight:bold;display:none}.video-preview{width:100%;max-height:500px;border-radius:18px;background:#000;margin-top:15px}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:15px;border-radius:12px;line-height:1.5}.footer{text-align:center;color:#64748b;padding:20px;font-size:14px}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header"><h1>🚀 CreatorPilot AI</h1><p>Turn your idea into viral content</p></div>
+<div class="card">
+<h2>🎬 Create Your Video</h2>
+<label>Video Idea</label><textarea id="idea" placeholder="Example: A funny aloo vlog in Dubai"></textarea>
+<label>Platform</label><select id="platform"><option>TikTok</option><option>YouTube Shorts</option><option>Instagram Reels</option><option>YouTube</option></select>
+<label>Duration</label><select id="duration"><option>10 seconds</option><option>15 seconds</option><option>30 seconds</option><option>60 seconds</option></select>
+<label>Language</label><select id="language"><option>Roman Urdu</option><option>Urdu</option><option>English</option></select>
+<label>Style</label><select id="style"><option>Funny</option><option>Viral</option><option>Emotional</option><option>Horror</option><option>Storytelling</option><option>Educational</option><option>Motivational</option></select>
+<button onclick="generateContent()">🚀 Generate Script</button>
+<button class="video-button" id="videoBtn" onclick="generateVideo()">🎬 Generate Video</button>
+<div class="loading" id="loading">⏳ Creating your content...</div>
+</div>
+<div class="card result" id="result"><h2>✨ Your Content</h2>
+<h3>🎬 Video Script</h3><div class="result-box" id="script"></div><button class="copy-btn" onclick="copyText('script')">📋 Copy Script</button>
+<h3>🎤 Voice Over</h3><div class="result-box" id="voice"></div><button class="copy-btn" onclick="copyText('voice')">📋 Copy Voice Over</button>
+<h3>📝 Caption</h3><div class="result-box" id="caption"></div><button class="copy-btn" onclick="copyText('caption')">📋 Copy Caption</button>
+<h3>#️⃣ Hashtags</h3><div class="result-box" id="hashtags"></div><button class="copy-btn" onclick="copyText('hashtags')">📋 Copy Hashtags</button></div>
+<div class="card video-result" id="videoResult"><h2>🎥 AI Video</h2><div class="notice" id="videoMessage"></div><video id="videoPreview" class="video-preview" controls playsinline style="display:none"></video></div>
+<div class="footer">CreatorPilot AI 🚀 | Create. Post. Grow.</div>
+</div>
+<script>
+function generateContent(){
+const idea=document.getElementById("idea").value.trim(),platform=document.getElementById("platform").value,duration=document.getElementById("duration").value,language=document.getElementById("language").value,style=document.getElementById("style").value;
+if(!idea){alert("Pehle apni video idea likho! 😄");return}document.getElementById("loading").style.display="block";document.getElementById("result").style.display="none";
+setTimeout(()=>{let script="",voice="";
+if(language==="Roman Urdu"){script=`🎬 SCENE 1\nCamera video idea par focus kare: ${idea}\n\n🎬 SCENE 2\nFast camera movement aur engaging visuals. Style: ${style}.\n\n🎬 SCENE 3\nMain moment ko close-up mein show karo.\n\n🎬 SCENE 4\nEnd mein strong hook: Follow karo aur next video miss mat karna!`;voice=`Aaj ki video ka idea hai: ${idea}.\n\nIs video ko ${style.toLowerCase()} style mein present karenge.\n\nAgar video pasand aaye to follow zaroor karna! 🚀`}
+else if(language==="Urdu"){script=`🎬 منظر 1\nویڈیو کا آغاز اس آئیڈیا سے کریں: ${idea}\n\n🎬 منظر 2\nتیز اور دلچسپ ویژولز دکھائیں۔ انداز: ${style}\n\n🎬 منظر 3\nاہم لمحے کو کلوز اپ میں دکھائیں۔\n\n🎬 منظر 4\nآخر میں کہیں: فالو کریں اور اگلی ویڈیو ضرور دیکھیں!`;voice=`آج کی ویڈیو کا آئیڈیا ہے: ${idea}.\n\nاس ویڈیو کو ${style} انداز میں پیش کیا جائے گا۔\n\nاگر ویڈیو پسند آئے تو فالو ضرور کریں! 🚀`}
+else{script=`🎬 SCENE 1\nStart with an attention-grabbing shot about: ${idea}\n\n🎬 SCENE 2\nUse fast visuals and engaging camera movement. Style: ${style}.\n\n🎬 SCENE 3\nShow the main moment with a close-up shot.\n\n🎬 SCENE 4\nFinish with a strong call-to-action: Follow for more!`;voice=`Today's video idea is: ${idea}.\n\nWe're turning this idea into a ${style.toLowerCase()} video for ${platform}.\n\nFollow for more amazing content! 🚀`}
+document.getElementById("script").innerText=script;document.getElementById("voice").innerText=voice;document.getElementById("caption").innerText=`🔥 ${idea} | ${style} content for ${platform} | ${duration}`;document.getElementById("hashtags").innerText=`#CreatorPilotAI #ViralVideo #ContentCreator #TikTok #Reels #Shorts #${style.replace(/\s/g,"")} #FYP`;
+document.getElementById("loading").style.display="none";document.getElementById("result").style.display="block"},700)}
+async function generateVideo(){
+const idea=document.getElementById("idea").value.trim(),duration=document.getElementById("duration").value,style=document.getElementById("style").value,language=document.getElementById("language").value;
+if(!idea){alert("Pehle video idea likho! 😄");return}
+const result=document.getElementById("videoResult"),msg=document.getElementById("videoMessage"),preview=document.getElementById("videoPreview"),btn=document.getElementById("videoBtn");
+result.style.display="block";preview.style.display="none";msg.innerHTML="⏳ AI video generate ho rahi hai...<br><br>Thora wait karo. 🚀";btn.disabled=true;btn.innerText="⏳ Generating...";
+try{
+const prompt=`Create a ${duration} ${style.toLowerCase()} video. Idea: ${idea}. Language: ${language}. Make it suitable for social media, vertical 9:16, engaging and high quality.`;
+const response=await fetch("/api/generate-video",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt})});
+const type=response.headers.get("content-type")||"";
+if(!response.ok){let error="Video generation failed.";if(type.includes("application/json")){const d=await response.json();error=d.error||error}else error=await response.text()||error;throw new Error(error)}
+if(type.includes("video")){const blob=await response.blob();preview.src=URL.createObjectURL(blob);preview.style.display="block";msg.innerHTML="✅ Video successfully generated! Neeche preview dekho. 🎬"}
+else{const d=await response.json();msg.innerHTML="⚠️ API ne video file ke bajaye response diya:<br><br><pre style='white-space:pre-wrap'>"+escapeHTML(JSON.stringify(d,null,2))+"</pre>"}
+}catch(e){msg.innerHTML="❌ Video generate nahi ho saki.<br><br><b>Error:</b> "+escapeHTML(e.message)}
+finally{btn.disabled=false;btn.innerText="🎬 Generate Video"}
+window.scrollTo({top:result.offsetTop-20,behavior:"smooth"})
+}
+function copyText(id){navigator.clipboard.writeText(document.getElementById(id).innerText).then(()=>alert("✅ Copied!")).catch(()=>alert("Copy nahi ho saka."))}
+function escapeHTML(text){const d=document.createElement("div");d.textContent=text;return d.innerHTML}
+</script>
+</body>
+</html>
